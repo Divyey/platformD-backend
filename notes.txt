@@ -1,0 +1,13 @@
+# Commit History
+
+## Commit_1: BACKEND + DB SETUP
+-created models
+-Created communities and link to events
+-Dockerfile
+-schema setup for all
+-worked on user login/registration (registration working, login pending)
+
+Next steps: 
+
+- need to run alembic as user model changed to "mapped" columns
+- need to create endpoints with logged in endpoints e.g, events creation
