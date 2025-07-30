@@ -1,10 +1,10 @@
 {
-  "username": "Divyey7",
-  "email": "divyey@gmail.com",
+  "username": "user4",
+  "email": "user4@example.com",
   "contact_number": "1234567890",
-  "bio": "Hello, I'm Divyey, excited to join the community!",
-  "interests": ["programming", "music"],
-  "avatar_url": "https://example.com/avatar/divyey7.png",
+  "bio": "Hello, I am user4!",
+  "interests": ["string"],
+  "avatar_url": "https://example.com/avatar/user4.png",
   "locale": "en",
   "password": "1234"
 }

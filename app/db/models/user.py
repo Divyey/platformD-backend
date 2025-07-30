@@ -1,15 +1,18 @@
 from typing import List, Optional
-from sqlalchemy import Integer, String, Boolean, DateTime, ARRAY, Text, Table, ForeignKey
+from sqlalchemy import (
+    Column, Integer, String, Boolean, DateTime, ARRAY, Text, Table, ForeignKey
+)
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from datetime import datetime
 from app.db.base import Base
 
-# Association table for many-to-many User <-> Community membership
+# Association table (must use classic Column, NOT mapped_column)
 user_community_association = Table(
     'user_community_association',
     Base.metadata,
-    mapped_column('user_id', Integer, ForeignKey('users.id'), primary_key=True),
-    mapped_column('community_id', Integer, ForeignKey('communities.id'), primary_key=True),
+    Column('user_id', Integer, ForeignKey('users.id'), primary_key=True),
+    Column('community_id', Integer, ForeignKey('communities.id'), primary_key=True),
+    extend_existing=True,  # prevents repeated load error if imported twice
 )
 
 class User(Base):
@@ -33,19 +36,14 @@ class User(Base):
     created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
     last_login: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
-    # Relationships with eager loading for async-safe serialization
-    communities_created = relationship(
-        "Community",
-        back_populates="creator",
-        lazy="selectin"
-    )
+    # Relationships
+    communities_created = relationship("Community", back_populates="creator", lazy="selectin")
     communities = relationship(
         "Community",
         secondary=user_community_association,
         back_populates="members",
         lazy="selectin"
     )
-
     events = relationship("Event", back_populates="organizer", lazy="selectin")
     rsvps = relationship("RSVP", back_populates="user", lazy="selectin")
     messages_sent = relationship("Message", foreign_keys='Message.sender_id', lazy="selectin")

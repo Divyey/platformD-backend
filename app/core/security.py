@@ -12,7 +12,6 @@ from app.crud.users import get_user_by_email
 from app.db.session import get_session
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/token")
 
 SECRET_KEY = settings.SECRET_KEY

@@ -9,7 +9,7 @@ class UserBase(BaseModel):
     email: EmailStr
     contact_number: Optional[str] = None
     bio: Optional[str] = None
-    interests: Optional[List[str]] = None  # Changed to List[str]
+    interests: Optional[List[str]] = None
     avatar_url: Optional[str] = None
     locale: Optional[str] = "en"
 
@@ -23,7 +23,6 @@ class UserOut(UserBase):
     is_verified: bool
     created_at: Optional[datetime]
     last_login: Optional[datetime]
-
     communities_created: Optional[List["CommunityOut"]] = None
     communities: Optional[List["CommunityOut"]] = None
 
