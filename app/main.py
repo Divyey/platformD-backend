@@ -6,7 +6,11 @@ app = FastAPI(title="PlatformD Backend API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],  # frontend dev URL(s)
+    allow_origins=[
+        "http://localhost:3000",        # React dev server (CRA) or similar
+        "http://localhost:5173",        # Vite dev server default
+        "https://platform-d-frontend-z1b1.vercel.app"  # Your deployed frontend URL
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
