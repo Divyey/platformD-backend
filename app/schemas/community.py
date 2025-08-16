@@ -18,11 +18,11 @@ class CommunityOut(CommunityBase):
     id: int
     creator_id: int
     created_at: datetime
-    members: Optional[List[int]] = None
-
+    members: Optional[List[int]] = None  # Can be user IDs or a schema of members if more detailed
     class Config:
         from_attributes = True
+        # orm_mode = True  # Correct config for ORM models
 
-# (Only needed if you actually use 'UserOut' as a field type)
+# Forward references for UserOut
 from app.schemas.user import UserOut
 CommunityOut.update_forward_refs()

@@ -50,3 +50,15 @@ async def delete_event(db: AsyncSession, event_id: int) -> bool:
     await db.delete(event)
     await db.commit()
     return True
+
+
+async def get_events_feed(db: AsyncSession, after_id: Optional[int], limit: int) -> List[Event]:
+    query = select(Event).order_by(Event.created_at.desc())
+    if after_id:
+        # Only get events older than the given latest id for the next page
+        last_event = await db.get(Event, after_id)
+        if last_event:
+            query = query.where(Event.created_at < last_event.created_at)
+    query = query.limit(limit)
+    result = await db.execute(query)
+    return result.scalars().all()

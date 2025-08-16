@@ -28,6 +28,6 @@ class UserOut(UserBase):
 
     class Config:
         from_attributes = True
-
+        # orm_mode = True  # Correct config for ORM models
 from app.schemas.community import CommunityOut
 UserOut.update_forward_refs()
