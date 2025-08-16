@@ -35,9 +35,15 @@ def create_access_token(
 
 async def authenticate_user(db: AsyncSession, email: str, password: str):
     user = await get_user_by_email(db, email)
-    if user and verify_password(password, user.hashed_password):
+    if user is None:
+        return None
+    if user.hashed_password is None or user.hashed_password == "":
+        # Optionally, let frontend know this is a Google-only account
+        return None
+    if verify_password(password, user.hashed_password):
         return user
     return None
+
 
 async def get_current_user(
     token: str = Depends(oauth2_scheme),

@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     GOOGLE_CLIENT_SECRET: str = os.getenv("GOOGLE_CLIENT_SECRET")
     GOOGLE_REDIRECT_URI: str = os.getenv("GOOGLE_REDIRECT_URI")
     OPENAI_API_KEY: str | None = None
+    FRONTEND_URL: str = os.getenv("FRONTEND_URL")
     # OPENAI_KEY_1: str | None = None
     # OPENAI_KEY_2: str | None = None
     # OPENAI_KEY_3: str | None = None

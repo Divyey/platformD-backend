@@ -27,6 +27,8 @@ async def google_login():
     }
     url = httpx.URL(GOOGLE_AUTH_URL).include_query_params(**params)
     return RedirectResponse(url)
+    # return RedirectResponse(f"{settings.FRONTEND_URL}/oauth-success?token={token}")
+
 
 
 @router.get("/google-callback")
@@ -95,4 +97,7 @@ async def google_callback(request: Request, db: AsyncSession = Depends(get_sessi
 
     # You can redirect to frontend app with token or
     # just return the token here for simplicity:
-    return {"access_token": token, "token_type": "bearer"}
+    # return {"access_token": token, "token_type": "bearer"}
+
+    # Recommended: redirect with token as a URL param (SPA will read and store it)
+    return RedirectResponse(f"{settings.FRONTEND_URL}/oauth-success?token={token}")
